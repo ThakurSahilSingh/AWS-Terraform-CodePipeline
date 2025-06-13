@@ -24,6 +24,7 @@ phases:
     commands:
       - echo Applying Terraform...
       - terraform apply -auto-approve tfplan
+      - terraform destroy -auto-approve
 
 artifacts:
   files:
