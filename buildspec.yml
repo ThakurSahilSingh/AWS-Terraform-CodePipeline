@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      terraform: 1.6
+    commands:
+      - echo Installing Terraform
+  pre_build:
+    commands:
+      - echo Initializing Terraform...
+      - terraform init
+  build:
+    commands:
+      - echo Validating Terraform...
+      - terraform validate
+      - echo Planning Terraform...
+      - terraform plan -out=tfplan
+  post_build:
+    commands:
+      - echo Applying Terraform...
+      - terraform apply -auto-approve tfplan
+
+artifacts:
+  files:
+    - '**/*'
