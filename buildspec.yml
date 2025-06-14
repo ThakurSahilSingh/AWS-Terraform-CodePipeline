@@ -5,14 +5,18 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
-      - yum install -y unzip curl
+      - echo Updating system and installing dependencies...
+      - apt-get update && apt-get install -y unzip curl
+      - echo Installing Terraform...
       - curl -O https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
       - unzip terraform_1.6.6_linux_amd64.zip
       - mv terraform /usr/local/bin/
       - terraform -version
   pre_build:
     commands:
+      - echo Terraform init...
       - terraform init
   build:
     commands:
+      - echo Destroying infrastructure...
       - terraform destroy -auto-approve
